@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Farming Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <link rel="stylesheet" href="suhu.css">
+</head>
+
+<body>
+
+<div class="mobile-container">
+  <h2>🌱 Smart Farming Monitor</h2>
+
+  <div class="dashboard">
+
+    <!-- SENSOR -->
+    <div class="farm-card">
+      <div class="card-header">
+        <span class="badge">Sensor</span>
+        <span class="bookmark">★</span>
+      </div>
+      <h3>Suhu Daun</h3>
+      <p class="desc">Monitoring suhu permukaan daun</p>
+      <div class="big-value">
+        <span id="daun">--</span><small>°C</small>
+      </div>
+    </div>
+
+    <div class="farm-card">
+      <div class="card-header">
+        <span class="badge">Sensor</span>
+        <span class="bookmark">★</span>
+      </div>
+      <h3>Suhu Udara</h3>
+      <p class="desc">Suhu lingkungan sekitar tanaman</p>
+      <div class="big-value">
+        <span id="udara">--</span><small>°C</small>
+      </div>
+    </div>
+
+    <div class="farm-card">
+      <div class="card-header">
+        <span class="badge">Sensor</span>
+        <span class="bookmark">★</span>
+      </div>
+      <h3>Kelembapan</h3>
+      <p class="desc">Kelembapan udara</p>
+      <div class="big-value">
+        <span id="lembap">--</span><small>%</small>
+      </div>
+    </div>
+
+    <!-- BARIS TENGAH -->
+    <div class="middle-row">
+
+      <div class="farm-card timestamp-card">
+        <div class="card-header">
+          <span class="badge">Sensor</span>
+          <span class="bookmark">★</span>
+        </div>
+        <h3>Timestamp</h3>
+        <p class="desc">Waktu update terakhir</p>
+        <div class="big-value">
+          <span id="timestamp">--</span><small> Waktu</small>
+        </div>
+      </div>
+
+      <div class="farm-card status-card">
+        <h3>Status Tanaman</h3>
+        <div class="status" id="status">Normal</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyApMqc3SkrsUmllftXME5uRmbj-NMi7kPI",
+    authDomain: "sensor-suhu-daun.firebaseapp.com",
+    databaseURL: "https://sensor-suhu-daun-default-rtdb.firebaseio.com",
+    projectId: "sensor-suhu-daun",
+    storageBucket: "sensor-suhu-daun.appspot.com",
+    messagingSenderId: "148168285194",
+    appId: "1:148168285194:web:30a4da19070051b58253f3"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const dbRef = firebase.database().ref("smart_farming");
+
+  dbRef.on("value", (snapshot) => {
+    const data = snapshot.val();
+
+    document.getElementById("daun").innerHTML   = data.suhu_daun ?? "--";
+    document.getElementById("udara").innerHTML  = data.suhu_udara ?? "--";
+    document.getElementById("lembap").innerHTML = data.kelembapan ?? "--";
+    document.getElementById("status").innerHTML = data.status ?? "--";
+
+    // ===== FORMAT TIMESTAMP =====
+    if (data.timestamp) {
+      const date = new Date(data.timestamp);
+
+      const formatted =
+        date.getDate().toString().padStart(2, "0") + "-" +
+        (date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+        date.getFullYear() + " " +
+        date.getHours().toString().padStart(2, "0") + ":" +
+        date.getMinutes().toString().padStart(2, "0");
+
+      document.getElementById("timestamp").innerHTML = formatted;
+    } else {
+      document.getElementById("timestamp").innerHTML = "--";
+    }
+  });
+</script>
+
+
+</body>
+</html>

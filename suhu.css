@@ -1,0 +1,114 @@
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #fff;
+}
+
+h2 {
+  text-align: center;
+  padding: 30px;
+}
+
+.mobile-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ===== DASHBOARD GRID ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* ===== CARD UMUM ===== */
+.farm-card {
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 180px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== HEADER CARD ===== */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.bookmark {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* ===== TEKS ===== */
+.farm-card h3 {
+  margin: 15px 0 5px;
+  font-size: 18px;
+}
+
+.desc {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.big-value {
+  margin-top: 15px;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.big-value small {
+  font-size: 18px;
+}
+
+/* ===== STATUS TANAMAN ===== */
+.status-card {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== MIDDLE ROW (MOBILE) ===== */
+.middle-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .middle-row {
+    grid-column: span 2;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== DESKTOP (FIX UTAMA) ===== */
+@media (min-width: 1024px) {
+  .dashboard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* BIAR TIMESTAMP & STATUS IKUT GRID */
+  .middle-row {
+    display: contents;
+  }
+}
